@@ -10,11 +10,13 @@ class CImgTestSuite : public Test::Suite
         {
             TEST_ADD(CImgTestSuite::test1);
             TEST_ADD(CImgTestSuite::test2);
+            TEST_ADD(CImgTestSuite::test3);
         }
         
     private:
         void test1();
         void test2();
+        void test3();
 };
 
 void CImgTestSuite::test1()
@@ -103,6 +105,34 @@ void CImgTestSuite::test2()
     TEST_ASSERT_MSG(x == img7.depth(), "Image depth mismatch");
     TEST_ASSERT_MSG(c == img7.spectrum(), "Image spectrum mismatch");
     TEST_ASSERT_MSG(((x * y * z * c) == img7.size()), "Image size mismatch");
+}
+
+void CImgTestSuite::test3()
+{
+    const unsigned int x = 256;
+    const unsigned int y = 128;
+    const unsigned int z = 64;
+    const unsigned int c = 3;
+    
+    for(int initialVal = 0; initialVal <= 5; initialVal++)
+    {
+        cimg_library::CImg<unsigned int> img(x, y, z, c, initialVal);
+        
+        for(int i = 0; i < x; i++)
+        {
+            for(int j = 0; j < y; j++)
+            {
+                for(int k = 0; k < z; k++)
+                {
+                    for(int l = 0; l < c; l++)
+                    {
+                        unsigned int pixelVal = img(i, j, k, l);
+                        TEST_ASSERT_MSG(pixelVal == initialVal, "Initial value of pixel incorrect");
+                    }
+                }
+            }
+        }
+    }
 }
 
 bool run_CImgTestSuite()
