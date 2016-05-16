@@ -20,3 +20,5 @@ Execution
   - vt : Verbose Text output
   - ct : Compiler output
   - ht : HTML output
+
+*NOTE: When executed in HTML output mode, file named "output.html" is generated in the same directory.
