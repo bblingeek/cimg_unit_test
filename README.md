@@ -21,4 +21,8 @@ Execution
   - ct : Compiler output
   - ht : HTML output
 
+Sample Run
+----------
+> make
+
 *NOTE: When executed in HTML output mode, file named "output.html" is generated in the same directory.
