@@ -1,5 +1,6 @@
 #include <cpptest.h>
 #include <iostream>
+#include <cstring>
 
 #include "CImg.h"
 
@@ -11,12 +12,14 @@ class CImgTestSuite : public Test::Suite
             TEST_ADD(CImgTestSuite::test1);
             TEST_ADD(CImgTestSuite::test2);
             TEST_ADD(CImgTestSuite::test3);
+            TEST_ADD(CImgTestSuite::test4);
         }
         
     private:
         void test1();
         void test2();
         void test3();
+        void test4();
 };
 
 void CImgTestSuite::test1()
@@ -133,6 +136,39 @@ void CImgTestSuite::test3()
             }
         }
     }
+}
+
+void CImgTestSuite::test4()
+{
+    cimg_library::CImg<unsigned char> img1;
+    TEST_ASSERT_MSG(0 == strcmp("unsigned char", img1.pixel_type()), "Pixel type mismatch");
+    
+    cimg_library::CImg<char> img2;
+    TEST_ASSERT_MSG(0 == strcmp("char", img2.pixel_type()), "Pixel type mismatch");
+    
+    cimg_library::CImg<unsigned short> img3;
+    TEST_ASSERT_MSG(0 == strcmp("unsigned short", img3.pixel_type()), "Pixel type mismatch");
+    
+    cimg_library::CImg<short> img4;
+    TEST_ASSERT_MSG(0 == strcmp("short", img4.pixel_type()), "Pixel type mismatch");
+    
+    cimg_library::CImg<unsigned int> img5;
+    TEST_ASSERT_MSG(0 == strcmp("unsigned int", img5.pixel_type()), "Pixel type mismatch");
+    
+    cimg_library::CImg<int> img6;
+    TEST_ASSERT_MSG(0 == strcmp("int", img6.pixel_type()), "Pixel type mismatch");
+    
+    cimg_library::CImg<unsigned long> img7;
+    TEST_ASSERT_MSG(0 == strcmp("unsigned int64", img7.pixel_type()), "Pixel type mismatch");
+    
+    cimg_library::CImg<long> img8;
+    TEST_ASSERT_MSG(0 == strcmp("int64", img8.pixel_type()), "Pixel type mismatch");
+    
+    cimg_library::CImg<float> img9;
+    TEST_ASSERT_MSG(0 == strcmp("float", img9.pixel_type()), "Pixel type mismatch");
+
+    cimg_library::CImg<double> img10;
+    TEST_ASSERT_MSG(0 == strcmp("double", img10.pixel_type()), "Pixel type mismatch");
 }
 
 bool run_CImgTestSuite()
