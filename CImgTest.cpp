@@ -1,8 +1,17 @@
 #include <cpptest.h>
 #include <iostream>
+#include <fstream>
 #include <cstring>
 
 #include "CImg.h"
+
+typedef enum
+{
+    TERSE_TEXT_OUTPUT = 0,
+    VERBOSE_TEXT_OUTPUT = 1,
+    COMPILER_OUTPUT = 2,
+    HTML_OUTPUT = 3
+} OUTPUT_TYPE;
 
 class CImgTestSuite : public Test::Suite
 {
@@ -181,29 +190,105 @@ void CImgTestSuite::test5()
     const unsigned int c = 3;
 
     cimg_library::CImg<float> img1;
-    TEST_ASSERT_MSG(false == img1.is_shared(), "Shared state mismatch");
+    TEST_ASSERT_MSG(false == img1.is_shared(), "Non-Shared image indicated as shared");
     TEST_ASSERT_MSG(true == img1.is_empty(), "Empty image indicated as non-empty");
     TEST_ASSERT_MSG(false == img1.is_inf(), "Empty image contains inf");
     TEST_ASSERT_MSG(false == img1.is_nan(), "Empty image contains nan");
     
     cimg_library::CImg<float> img2(x, y, z, c, 0);
-    TEST_ASSERT_MSG(false == img2.is_shared(), "Shared state mismatch");
+    TEST_ASSERT_MSG(false == img2.is_shared(), "Non-Shared image indicated as shared");
     TEST_ASSERT_MSG(false == img2.is_empty(), "Non-Empty image indicated as empty");
-    TEST_ASSERT_MSG(false == img2.is_inf(), "Non-Empty image contains inf");
-    TEST_ASSERT_MSG(false == img2.is_nan(), "Non-Empty image contains nan");
+    TEST_ASSERT_MSG(false == img2.is_inf(), "Non-Empty & Non-inf image contains inf");
+    TEST_ASSERT_MSG(false == img2.is_nan(), "Non-Empty & Non-nan image contains nan");
 }
 
-bool run_CImgTestSuite()
+bool run_tests(int outputType)
 {
-    CImgTestSuite ts;
-    Test::TextOutput output(Test::TextOutput::Verbose);
+    Test::Suite ts;
+    bool retVal = false;
     
-    return ts.run(output, false);
+    ts.add(std::auto_ptr<Test::Suite>(new CImgTestSuite));
+    
+    switch(outputType)
+    {
+        case TERSE_TEXT_OUTPUT:
+            {
+                Test::TextOutput output(Test::TextOutput::Terse);
+                retVal = ts.run(output);
+            }
+            break;
+            
+        case VERBOSE_TEXT_OUTPUT:
+            {
+                Test::TextOutput output(Test::TextOutput::Verbose);
+                retVal = ts.run(output);
+            }
+            break;
+            
+        case COMPILER_OUTPUT:
+            {
+                Test::CompilerOutput output;
+                retVal = ts.run(output);
+            }
+            break;
+            
+        case HTML_OUTPUT:
+            {
+                Test::HtmlOutput output;
+                std::fstream outfile;
+                
+                outfile.open("output.html", std::ios_base::out);
+                retVal = ts.run(output);
+                output.generate(outfile);
+                outfile.close();
+            }
+            break;
+    }
+    return retVal;
+}
+
+void usage()
+{
+    std::cout<<std::endl;
+    std::cout<<"--------- Usage ----------"<<std::endl;
+    std::cout<<"> ./CImgTest <output type>"<<std::endl;
+    std::cout<<std::endl;
+    std::cout<<"  Output Types"<<std::endl;
+    std::cout<<"  tt : Terse Text output"<<std::endl;
+    std::cout<<"  vt : Verbose Text output"<<std::endl;
+    std::cout<<"  ct : Compiler output"<<std::endl;
+    std::cout<<"  ht : HTML output"<<std::endl;
+    std::cout<<std::endl;
 }
 
 int main(int argc, char** argv)
 {
-    run_CImgTestSuite();
-    
+    if(argc != 2)
+    {
+        usage();
+    }
+    else
+    {
+        if(0 == strcmp(argv[1], "tt"))
+        {
+            run_tests(TERSE_TEXT_OUTPUT);
+        }
+        else if(0 == strcmp(argv[1], "vt"))
+        {
+            run_tests(VERBOSE_TEXT_OUTPUT);
+        }
+        else if(0 == strcmp(argv[1], "ct"))
+        {
+            run_tests(COMPILER_OUTPUT);
+        }
+        else if(0 == strcmp(argv[1], "ht"))
+        {
+            run_tests(HTML_OUTPUT);
+        }
+        else
+        {
+            usage();
+        }
+    }
     return 0;
 }
