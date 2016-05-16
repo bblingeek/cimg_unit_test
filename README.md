@@ -42,5 +42,9 @@ Sample Run
 > ./CImgTest ct
 
   No output. Output only seen in case of test failures.
+
+> ./CImgTest ht
+
+  ![Alt text](images/ht.png?raw=true "Run Test with HTML output argument")
   
 *NOTE: When executed in HTML output mode, file named "output.html" is generated in the same directory.
