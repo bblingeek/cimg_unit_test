@@ -30,5 +30,17 @@ Sample Run
 > ./CImgTest
 
   ![Alt text](images/no_arg_run.png?raw=true "Run Test without arguments")
+
+> ./CImgTest tt
+
+  ![Alt text](images/tt.png?raw=true "Run Test with Terse Text output argument")
+
+> ./CImgTest vt
+
+  ![Alt text](images/tt.png?raw=true "Run Test with Verbose Text output argument")
+
+> ./CImgTest ct
+
+  No output. Output only seen in case of test failures.
   
 *NOTE: When executed in HTML output mode, file named "output.html" is generated in the same directory.
