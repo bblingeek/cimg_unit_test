@@ -13,6 +13,7 @@ class CImgTestSuite : public Test::Suite
             TEST_ADD(CImgTestSuite::test2);
             TEST_ADD(CImgTestSuite::test3);
             TEST_ADD(CImgTestSuite::test4);
+            TEST_ADD(CImgTestSuite::test5);
         }
         
     private:
@@ -20,6 +21,7 @@ class CImgTestSuite : public Test::Suite
         void test2();
         void test3();
         void test4();
+        void test5();
 };
 
 void CImgTestSuite::test1()
@@ -169,6 +171,26 @@ void CImgTestSuite::test4()
 
     cimg_library::CImg<double> img10;
     TEST_ASSERT_MSG(0 == strcmp("double", img10.pixel_type()), "Pixel type mismatch");
+}
+
+void CImgTestSuite::test5()
+{
+    const unsigned int x = 256;
+    const unsigned int y = 128;
+    const unsigned int z = 64;
+    const unsigned int c = 3;
+
+    cimg_library::CImg<float> img1;
+    TEST_ASSERT_MSG(false == img1.is_shared(), "Shared state mismatch");
+    TEST_ASSERT_MSG(true == img1.is_empty(), "Empty image indicated as non-empty");
+    TEST_ASSERT_MSG(false == img1.is_inf(), "Empty image contains inf");
+    TEST_ASSERT_MSG(false == img1.is_nan(), "Empty image contains nan");
+    
+    cimg_library::CImg<float> img2(x, y, z, c, 0);
+    TEST_ASSERT_MSG(false == img2.is_shared(), "Shared state mismatch");
+    TEST_ASSERT_MSG(false == img2.is_empty(), "Non-Empty image indicated as empty");
+    TEST_ASSERT_MSG(false == img2.is_inf(), "Non-Empty image contains inf");
+    TEST_ASSERT_MSG(false == img2.is_nan(), "Non-Empty image contains nan");
 }
 
 bool run_CImgTestSuite()
