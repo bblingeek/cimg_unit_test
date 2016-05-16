@@ -27,4 +27,8 @@ Sample Run
 
   ![Alt text](images/make.png?raw=true "make")
 
+> ./CImgTest
+
+  ![Alt text](images/no_arg_run.png?raw=true "Run Test without arguments")
+  
 *NOTE: When executed in HTML output mode, file named "output.html" is generated in the same directory.
