@@ -9,3 +9,14 @@ Minimum Requirements
 
 Execution
 ---------
+1. Run make
+> make
+
+2. Run Tests
+> ./CImgTest < output type >
+
+  Output Types: -
+  - tt : Terse Text output
+  - vt : Verbose Text output
+  - ct : Compiler output
+  - ht : HTML output
