@@ -57,6 +57,7 @@ execute make with an argument ENABLE_COVERAGE=1
 TODO
 ----
 1. Organize the tests and name them meaningfully.  
-   For eg. Tests for constructors, Tests for getter methods, Tests for setter methods, etc.
-
+   For eg. Tests for constructors, Tests for getter methods, Tests for setter methods, etc.  
+2. Improve code coverage
+  
 *NOTE: When executed in HTML output mode, file named "output.html" is generated in the same directory.
