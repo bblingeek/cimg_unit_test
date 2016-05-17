@@ -47,6 +47,13 @@ Sample Run
 
   ![Alt text](images/ht.png?raw=true "Run Test with HTML output argument")
 
+Code Coverage
+-------------
+In case you need to use gcov for generating code coverage reports,  
+execute make with an argument ENABLE_COVERAGE=1
+
+> make ENABLE_COVERAGE=1
+
 TODO
 ----
 1. Organize the tests and name them meaningfully.  
