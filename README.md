@@ -46,5 +46,10 @@ Sample Run
 > ./CImgTest ht
 
   ![Alt text](images/ht.png?raw=true "Run Test with HTML output argument")
-  
+
+TODO
+----
+1. Organize the tests and name them meaningfully.  
+   For eg. Tests for constructors, Tests for getter methods, Tests for setter methods, etc.
+
 *NOTE: When executed in HTML output mode, file named "output.html" is generated in the same directory.
