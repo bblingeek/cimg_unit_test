@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
+#include <cmath>
 
 #include "CImg.h"
 
@@ -24,6 +25,7 @@ class CImgTestSuite : public Test::Suite
             TEST_ADD(CImgTestSuite::test4);
             TEST_ADD(CImgTestSuite::test5);
             TEST_ADD(CImgTestSuite::test6);
+            TEST_ADD(CImgTestSuite::test7);
         }
         
     private:
@@ -33,6 +35,7 @@ class CImgTestSuite : public Test::Suite
         void test4();
         void test5();
         void test6();
+        void test7();
 };
 
 void CImgTestSuite::test1()
@@ -238,8 +241,44 @@ void CImgTestSuite::test6()
                 }
             }
         }
+    }    
+}
+
+void CImgTestSuite::test7()
+{
+    cimg_library::CImg<float> img1("images/ht.png");
+    cimg_library::CImg<float> img2 = img1.get_sqrt();
+    
+    for(int i = 0; i < img1.width(); i++)
+    {
+        for(int j = 0; j < img1.height(); j++)
+        {
+            for(int k = 0; k < img1.depth(); k++)
+            {
+                for(int l = 0; l < img1.spectrum(); l++)
+                {
+                    TEST_ASSERT_DELTA_MSG(sqrt(img1(i, j, k, l)), img2(i, j, k, l), 0.01, "CImg::get_sqrt method error");
+                }
+            }
+        }
     }
     
+    cimg_library::CImg<float> img3(img1);
+    img3.sqrt();
+    
+    for(int i = 0; i < img1.width(); i++)
+    {
+        for(int j = 0; j < img1.height(); j++)
+        {
+            for(int k = 0; k < img1.depth(); k++)
+            {
+                for(int l = 0; l < img1.spectrum(); l++)
+                {
+                    TEST_ASSERT_DELTA_MSG(sqrt(img1(i, j, k, l)), img3(i, j, k, l), 0.01, "CImg::sqrt method error");
+                }
+            }
+        }
+    }    
 }
 
 bool run_tests(int outputType)
