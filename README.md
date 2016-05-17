@@ -7,8 +7,8 @@ Minimum Requirements
 2. libX11
 3. libpthread
 
-Execution
----------
+Execution Steps
+---------------
 1. Run make
 > make
 
