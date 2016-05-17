@@ -58,6 +58,7 @@ TODO
 ----
 1. Organize the tests and name them meaningfully.  
    For eg. Tests for constructors, Tests for getter methods, Tests for setter methods, etc.  
-2. Improve code coverage
+2. Document the test code.  
+3. Improve code coverage.  
   
 *NOTE: When executed in HTML output mode, file named "output.html" is generated in the same directory.
