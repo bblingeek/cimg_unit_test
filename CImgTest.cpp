@@ -11,7 +11,7 @@ typedef enum
     VERBOSE_TEXT_OUTPUT = 1,
     COMPILER_OUTPUT = 2,
     HTML_OUTPUT = 3
-} OUTPUT_TYPE;
+} OutputType;
 
 class CImgTestSuite : public Test::Suite
 {
@@ -23,6 +23,7 @@ class CImgTestSuite : public Test::Suite
             TEST_ADD(CImgTestSuite::test3);
             TEST_ADD(CImgTestSuite::test4);
             TEST_ADD(CImgTestSuite::test5);
+            TEST_ADD(CImgTestSuite::test6);
         }
         
     private:
@@ -31,6 +32,7 @@ class CImgTestSuite : public Test::Suite
         void test3();
         void test4();
         void test5();
+        void test6();
 };
 
 void CImgTestSuite::test1()
@@ -200,6 +202,44 @@ void CImgTestSuite::test5()
     TEST_ASSERT_MSG(false == img2.is_empty(), "Non-Empty image indicated as empty");
     TEST_ASSERT_MSG(false == img2.is_inf(), "Non-Empty & Non-inf image contains inf");
     TEST_ASSERT_MSG(false == img2.is_nan(), "Non-Empty & Non-nan image contains nan");
+}
+
+void CImgTestSuite::test6()
+{
+    cimg_library::CImg<int> img1("images/ht.png");
+    cimg_library::CImg<int> img2 = img1.get_sqr();
+    
+    for(int i = 0; i < img1.width(); i++)
+    {
+        for(int j = 0; j < img1.height(); j++)
+        {
+            for(int k = 0; k < img1.depth(); k++)
+            {
+                for(int l = 0; l < img1.spectrum(); l++)
+                {
+                    TEST_ASSERT_MSG((img1(i, j, k, l) * img1(i, j, k, l)) == img2(i, j, k, l), "CImg::get_sqr method error");
+                }
+            }
+        }
+    }
+    
+    cimg_library::CImg<int> img3(img1);
+    img3.sqr();
+    
+    for(int i = 0; i < img1.width(); i++)
+    {
+        for(int j = 0; j < img1.height(); j++)
+        {
+            for(int k = 0; k < img1.depth(); k++)
+            {
+                for(int l = 0; l < img1.spectrum(); l++)
+                {
+                    TEST_ASSERT_MSG((img1(i, j, k, l) * img1(i, j, k, l)) == img3(i, j, k, l), "CImg::sqr method error");
+                }
+            }
+        }
+    }
+    
 }
 
 bool run_tests(int outputType)
