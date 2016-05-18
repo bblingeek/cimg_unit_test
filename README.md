@@ -57,7 +57,7 @@ execute make with an argument ENABLE_COVERAGE=1
 TODO
 ----
 1. Organize the tests and name them meaningfully.  
-   For eg. Tests for constructors, Tests for getter methods, Tests for setter methods, etc.  
+   For eg. Tests for constructors, Tests for getter methods, Tests for setter methods, Tests for mathematical functions, etc.  
 2. Document the test code.  
 3. Improve code coverage.  
   
