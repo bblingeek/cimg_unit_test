@@ -61,4 +61,6 @@ TODO
 2. Document the test code.  
 3. Improve code coverage.  
   
-*NOTE: When executed in HTML output mode, file named "output.html" is generated in the same directory.
+*NOTE  
+1. Image files used for testing purpose are picked from "images" folder.  
+2. When executed in HTML output mode, file named "output.html" is generated in the same directory.  
