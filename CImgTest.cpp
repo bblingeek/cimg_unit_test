@@ -137,19 +137,10 @@ void CImgTestSuite::test3()
     {
         cimg_library::CImg<unsigned int> img(x, y, z, c, initialVal);
         
-        for(int i = 0; i < x; i++)
+        cimg_forXYZC(img, i, j, k, l)
         {
-            for(int j = 0; j < y; j++)
-            {
-                for(int k = 0; k < z; k++)
-                {
-                    for(int l = 0; l < c; l++)
-                    {
-                        unsigned int pixelVal = img(i, j, k, l);
-                        TEST_ASSERT_MSG(pixelVal == initialVal, "Initial value of pixel incorrect");
-                    }
-                }
-            }
+            unsigned int pixelVal = img(i, j, k, l);
+            TEST_ASSERT_MSG(pixelVal == initialVal, "Initial value of pixel incorrect");
         }
     }
 }
@@ -212,36 +203,18 @@ void CImgTestSuite::test6()
     cimg_library::CImg<int> img1("images/ht.png");
     cimg_library::CImg<int> img2 = img1.get_sqr();
     
-    for(int i = 0; i < img1.width(); i++)
+    cimg_forXYZC(img1, i, j, k, l)
     {
-        for(int j = 0; j < img1.height(); j++)
-        {
-            for(int k = 0; k < img1.depth(); k++)
-            {
-                for(int l = 0; l < img1.spectrum(); l++)
-                {
-                    TEST_ASSERT_MSG((img1(i, j, k, l) * img1(i, j, k, l)) == img2(i, j, k, l), "CImg::get_sqr method error");
-                }
-            }
-        }
+        TEST_ASSERT_MSG((img1(i, j, k, l) * img1(i, j, k, l)) == img2(i, j, k, l), "CImg::get_sqr method error");
     }
     
     cimg_library::CImg<int> img3(img1);
     img3.sqr();
     
-    for(int i = 0; i < img1.width(); i++)
+    cimg_forXYZC(img1, i, j, k, l)
     {
-        for(int j = 0; j < img1.height(); j++)
-        {
-            for(int k = 0; k < img1.depth(); k++)
-            {
-                for(int l = 0; l < img1.spectrum(); l++)
-                {
-                    TEST_ASSERT_MSG((img1(i, j, k, l) * img1(i, j, k, l)) == img3(i, j, k, l), "CImg::sqr method error");
-                }
-            }
-        }
-    }    
+        TEST_ASSERT_MSG((img1(i, j, k, l) * img1(i, j, k, l)) == img3(i, j, k, l), "CImg::get_sqr method error");
+    }
 }
 
 void CImgTestSuite::test7()
@@ -249,36 +222,18 @@ void CImgTestSuite::test7()
     cimg_library::CImg<float> img1("images/ht.png");
     cimg_library::CImg<float> img2 = img1.get_sqrt();
     
-    for(int i = 0; i < img1.width(); i++)
+    cimg_forXYZC(img1, i, j, k, l)
     {
-        for(int j = 0; j < img1.height(); j++)
-        {
-            for(int k = 0; k < img1.depth(); k++)
-            {
-                for(int l = 0; l < img1.spectrum(); l++)
-                {
-                    TEST_ASSERT_DELTA_MSG(sqrt(img1(i, j, k, l)), img2(i, j, k, l), 0.01, "CImg::get_sqrt method error");
-                }
-            }
-        }
+        TEST_ASSERT_DELTA_MSG(sqrt(img1(i, j, k, l)), img2(i, j, k, l), 0.01, "CImg::get_sqrt method error");
     }
     
     cimg_library::CImg<float> img3(img1);
     img3.sqrt();
     
-    for(int i = 0; i < img1.width(); i++)
+    cimg_forXYZC(img1, i, j, k, l)
     {
-        for(int j = 0; j < img1.height(); j++)
-        {
-            for(int k = 0; k < img1.depth(); k++)
-            {
-                for(int l = 0; l < img1.spectrum(); l++)
-                {
-                    TEST_ASSERT_DELTA_MSG(sqrt(img1(i, j, k, l)), img3(i, j, k, l), 0.01, "CImg::sqrt method error");
-                }
-            }
-        }
-    }    
+        TEST_ASSERT_DELTA_MSG(sqrt(img1(i, j, k, l)), img3(i, j, k, l), 0.01, "CImg::get_sqrt method error");
+    }
 }
 
 bool run_tests(int outputType)
