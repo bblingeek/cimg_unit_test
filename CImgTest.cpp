@@ -26,6 +26,7 @@ class CImgTestSuite : public Test::Suite
             TEST_ADD(CImgTestSuite::test5);
             TEST_ADD(CImgTestSuite::test6);
             TEST_ADD(CImgTestSuite::test7);
+            TEST_ADD(CImgTestSuite::test8);
         }
         
     private:
@@ -36,6 +37,7 @@ class CImgTestSuite : public Test::Suite
         void test5();
         void test6();
         void test7();
+        void test8();
 };
 
 void CImgTestSuite::test1()
@@ -233,6 +235,25 @@ void CImgTestSuite::test7()
     cimg_forXYZC(img1, i, j, k, l)
     {
         TEST_ASSERT_DELTA_MSG(sqrt(img1(i, j, k, l)), img3(i, j, k, l), 0.01, "CImg::get_sqrt method error");
+    }
+}
+
+void CImgTestSuite::test8()
+{
+    cimg_library::CImg<long double> img1("images/ht.png");
+    cimg_library::CImg<long double> img2 = img1.get_exp();
+    
+    cimg_forXYZC(img1, i, j, k, l)
+    {
+        TEST_ASSERT_DELTA_MSG(exp(img1(i, j, k, l)), img2(i, j, k, l), 0.01, "CImg::get_exp method error");
+    }
+    
+    cimg_library::CImg<long double> img3(img1);
+    img3.exp();
+    
+    cimg_forXYZC(img1, i, j, k, l)
+    {
+        TEST_ASSERT_DELTA_MSG(exp(img1(i, j, k, l)), img3(i, j, k, l), 0.01, "CImg::get_exp method error");
     }
 }
 
