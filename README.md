@@ -54,7 +54,6 @@ execute make with an argument ENABLE_COVERAGE=1
 
 > make ENABLE_COVERAGE=1
 
-Sample coverage report generated using gcov/lcov
 ![Alt text](images/coverage.png?raw=true "LCOV coverage report")
 
 TODO
