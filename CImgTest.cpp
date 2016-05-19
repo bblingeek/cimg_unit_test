@@ -103,6 +103,12 @@ void CImgTestSuite::cimgUTestEmptyImage()
     TEST_THROWS_MSG(img1.variance_noise(1), cimg_library::CImgInstanceException, "CImgInstanceException expected");
     TEST_THROWS_MSG(img1.variance_noise(2), cimg_library::CImgInstanceException, "CImgInstanceException expected");
     TEST_THROWS_MSG(img1.variance_noise(3), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+    TEST_THROWS_MSG(img1.magnitude(-1), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+    TEST_THROWS_MSG(img1.magnitude(0), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+    TEST_THROWS_MSG(img1.magnitude(1), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+    TEST_THROWS_MSG(img1.magnitude(), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+    TEST_THROWS_MSG(img1.trace(), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+    TEST_THROWS_MSG(img1.det(), cimg_library::CImgInstanceException, "CImgInstanceException expected");
 }
 
 void CImgTestSuite::test1()
