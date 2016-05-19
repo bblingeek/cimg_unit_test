@@ -21,6 +21,7 @@ class CImgTestSuite : public Test::Suite
         CImgTestSuite()
         {
             TEST_ADD(CImgTestSuite::cimgUTestEmptyImage);
+            TEST_ADD(CImgTestSuite::cimgUTestDataInput);
             TEST_ADD(CImgTestSuite::test1);
             TEST_ADD(CImgTestSuite::test2);
             TEST_ADD(CImgTestSuite::test3);
@@ -33,6 +34,7 @@ class CImgTestSuite : public Test::Suite
         
     private:
         void cimgUTestEmptyImage();
+        void cimgUTestDataInput();
         void test1();
         void test2();
         void test3();
@@ -109,6 +111,15 @@ void CImgTestSuite::cimgUTestEmptyImage()
     TEST_THROWS_MSG(img1.magnitude(), cimg_library::CImgInstanceException, "CImgInstanceException expected");
     TEST_THROWS_MSG(img1.trace(), cimg_library::CImgInstanceException, "CImgInstanceException expected");
     TEST_THROWS_MSG(img1.det(), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+}
+
+void CImgTestSuite::cimgUTestDataInput()
+{
+    cimg_library::CImg<> img;
+    
+    TEST_THROWS_MSG(img.load(NULL), cimg_library::CImgArgumentException, "CImgArgumentException expected");
+    TEST_THROWS_MSG(img.load("non-existent-file.jpg"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.load_ascii("non-existent-file.jpg"), cimg_library::CImgIOException, "CImgIOException expected");
 }
 
 void CImgTestSuite::test1()
