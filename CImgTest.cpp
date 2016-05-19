@@ -20,6 +20,7 @@ class CImgTestSuite : public Test::Suite
     public:
         CImgTestSuite()
         {
+            TEST_ADD(CImgTestSuite::cimgUTestEmptyImage);
             TEST_ADD(CImgTestSuite::test1);
             TEST_ADD(CImgTestSuite::test2);
             TEST_ADD(CImgTestSuite::test3);
@@ -31,6 +32,7 @@ class CImgTestSuite : public Test::Suite
         }
         
     private:
+        void cimgUTestEmptyImage();
         void test1();
         void test2();
         void test3();
@@ -41,14 +43,71 @@ class CImgTestSuite : public Test::Suite
         void test8();
 };
 
+void CImgTestSuite::cimgUTestEmptyImage()
+{
+    cimg_library::CImg<float> img1, img2;
+    
+    TEST_ASSERT_MSG(0 == img1.width(), "Non-zero width for an empty image");
+    TEST_ASSERT_MSG(0 == img1.height(), "Non-zero height for an empty image");
+    TEST_ASSERT_MSG(0 == img1.depth(), "Non-zero depth for an empty image");
+    TEST_ASSERT_MSG(0 == img1.spectrum(), "Non-zero spectrum for an empty image");
+    TEST_ASSERT_MSG(0 == img1.size(), "Non-zero size for an empty image");
+    TEST_ASSERT_MSG(NULL == img1.data(), "Non-null data pointer for an empty image");
+    TEST_ASSERT_MSG(false == img1.is_shared(), "Shared empty image");
+    TEST_ASSERT_MSG(NULL == img1.begin(), "Non-null data pointer for an empty image");
+    TEST_ASSERT_MSG(NULL == img1.end(), "Non-null data pointer for an empty image");
+    TEST_ASSERT_MSG(0 == strcmp("float", img1.pixel_type()), "Pixel type incorrect for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_empty(), "Empty image termed as non-empty");
+    TEST_ASSERT_MSG(false == img1.is_inf(), "Empty image contains Inf");
+    TEST_ASSERT_MSG(false == img1.is_nan(), "Empty image containf Nan");
+    TEST_ASSERT_MSG(true == img1.is_sameX(0), "Non-zero width for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameX(img2), "Non-zero width for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameY(0), "Non-zero height for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameY(img2), "Non-zero height for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameZ(0), "Non-zero depth for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameZ(img2), "Non-zero depth for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameC(0), "Non-zero spectrum for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameC(img2), "Non-zero spectrum for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameXY(0, 0), "Non-zero width and/or height for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameXY(img2), "Non-zero width and/or height for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameXZ(0, 0), "Non-zero width and/or depth for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameXZ(img2), "Non-zero width and/or depth for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameXC(0, 0), "Non-zero width and/or spectrum for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameXC(img2), "Non-zero width and/or spectrum for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameYZ(0, 0), "Non-zero height and/or depth for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameYZ(img2), "Non-zero height and/or depth for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameYC(0, 0), "Non-zero height and/or spectrum for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameYC(img2), "Non-zero height and/or spectrum for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameZC(0, 0), "Non-zero depth and/or spectrum for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameZC(img2), "Non-zero depth and/or spectrum for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameXYZ(0, 0, 0), "Non-zero width and/or height and/or depth for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameXYZ(img2), "Non-zero width and/or height and/or depth for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameXYC(0, 0, 0), "Non-zero width and/or height and/or spectrum for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameXYC(img2), "Non-zero width and/or height and/or spectrum for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameXZC(0, 0, 0), "Non-zero width and/or depth and/or spectrum for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameXZC(img2), "Non-zero width and/or depth and/or spectrum for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameYZC(0, 0, 0), "Non-zero height and/or depth and/or spectrum for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameYZC(img2), "Non-zero height and/or depth and/or spectrum for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameXYZC(0, 0, 0, 0), "Non-zero width and/or height and/or depth and/or spectrum for an empty image");
+    TEST_ASSERT_MSG(true == img1.is_sameXYZC(img2), "Non-zero width and/or height and/or depth and/or spectrum for an empty image");
+    TEST_ASSERT_MSG(false == img1.containsXYZC(0, 0, 0, 0), "Pixel exists for an empty image");
+    TEST_THROWS_MSG(img1.median(), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+    TEST_ASSERT_MSG(0 == img1.product(), "Non-zero product for an empty image");
+    TEST_ASSERT_MSG(0 == img1.sum(), "Non-zero sum for an empty image");
+    TEST_ASSERT_MSG(true == isnan(img1.mean()), "Non-zero mean for an empty image");
+    TEST_THROWS_MSG(img1.variance(0), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+    TEST_THROWS_MSG(img1.variance(1), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+    TEST_THROWS_MSG(img1.variance(2), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+    TEST_THROWS_MSG(img1.variance(3), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+    TEST_THROWS_MSG(img1.variance_noise(0), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+    TEST_THROWS_MSG(img1.variance_noise(1), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+    TEST_THROWS_MSG(img1.variance_noise(2), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+    TEST_THROWS_MSG(img1.variance_noise(3), cimg_library::CImgInstanceException, "CImgInstanceException expected");
+}
+
 void CImgTestSuite::test1()
 {
     cimg_library::CImg<float> img;
-    TEST_ASSERT_MSG(0 == img.width(), "Non-zero width for an empty image");
-    TEST_ASSERT_MSG(0 == img.height(), "Non-zero height for an empty image");
-    TEST_ASSERT_MSG(0 == img.depth(), "Non-zero depth for an empty image");
-    TEST_ASSERT_MSG(0 == img.spectrum(), "Non-zero spectrum for an empty image");
-    TEST_ASSERT_MSG(0 == img.size(), "Non-zero size for an empty image");
     
     cimg_library::CImg<unsigned int> img1(256, 0, 256, 3);
     TEST_ASSERT_MSG(0 == img1.width(), "Non-zero width for an empty image");
