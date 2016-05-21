@@ -22,7 +22,7 @@ class CImgTestSuite : public Test::Suite
         {
             TEST_ADD(CImgTestSuite::cimgUTestEmptyImage);
             TEST_ADD(CImgTestSuite::cimgUTestDataInput);
-            TEST_ADD(CImgTestSuite::test1);
+            TEST_ADD(CImgTestSuite::cimgUTest1);
             TEST_ADD(CImgTestSuite::test2);
             TEST_ADD(CImgTestSuite::test3);
             TEST_ADD(CImgTestSuite::test4);
@@ -35,7 +35,7 @@ class CImgTestSuite : public Test::Suite
     private:
         void cimgUTestEmptyImage();
         void cimgUTestDataInput();
-        void test1();
+        void cimgUTest1();
         void test2();
         void test3();
         void test4();
@@ -159,32 +159,54 @@ void CImgTestSuite::cimgUTestDataInput()
     TEST_THROWS_MSG(img.load_dcraw_external("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
     TEST_THROWS_MSG(img.load_other(NULL), cimg_library::CImgArgumentException, "CImgArgumentException expected");
     TEST_THROWS_MSG(img.load_other("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+
+    TEST_THROWS_MSG(img.get_load(NULL), cimg_library::CImgArgumentException, "CImgArgumentException expected");
+    TEST_THROWS_MSG(img.get_load("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_ascii("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_dlm("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_bmp("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_jpeg("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_magick("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_png("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_pnm("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_pfm("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_rgb("non-existent-file", 1, 1), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_rgba("non-existent-file", 1, 1), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_tiff(NULL), cimg_library::CImgArgumentException, "CImgArgumentException expected");
+    TEST_THROWS_MSG(img.get_load_tiff("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_minc2(NULL), cimg_library::CImgArgumentException, "CImgArgumentException expected");
+    TEST_THROWS_MSG(img.get_load_minc2("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_analyze("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_cimg("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_inr("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_pandore("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_parrec(NULL), cimg_library::CImgArgumentException, "CImgArgumentException expected");
+    TEST_THROWS_MSG(img.get_load_parrec("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_raw("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_yuv("non-existent-file", 10), cimg_library::CImgArgumentException, "CImgArgumentException expected");
+    TEST_THROWS_MSG(img.get_load_video(NULL), cimg_library::CImgArgumentException, "CImgArgumentException expected");
+    TEST_THROWS_MSG(img.get_load_video("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_ffmpeg_external(NULL), cimg_library::CImgArgumentException, "CImgArgumentException expected");
+    TEST_THROWS_MSG(img.get_load_ffmpeg_external("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_gif_external(NULL), cimg_library::CImgArgumentException, "CImgArgumentException expected");
+    TEST_THROWS_MSG(img.get_load_gif_external("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_graphicsmagick_external(NULL), cimg_library::CImgArgumentException, "CImgArgumentException expected");
+    TEST_THROWS_MSG(img.get_load_graphicsmagick_external("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_gzip_external(NULL), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_gzip_external("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_imagemagick_external(NULL), cimg_library::CImgArgumentException, "CImgArgumentException expected");
+    TEST_THROWS_MSG(img.get_load_imagemagick_external("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_medcon_external(NULL), cimg_library::CImgArgumentException, "CImgArgumentException expected");
+    TEST_THROWS_MSG(img.get_load_medcon_external("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_dcraw_external(NULL), cimg_library::CImgArgumentException, "CImgArgumentException expected");
+    TEST_THROWS_MSG(img.get_load_dcraw_external("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");
+    TEST_THROWS_MSG(img.get_load_other(NULL), cimg_library::CImgArgumentException, "CImgArgumentException expected");
+    TEST_THROWS_MSG(img.get_load_other("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");    
 }
 
-void CImgTestSuite::test1()
+void CImgTestSuite::cimgUTest1()
 {
-    cimg_library::CImg<float> img;
-    
-    cimg_library::CImg<unsigned int> img1(256, 0, 256, 3);
-    TEST_ASSERT_MSG(0 == img1.width(), "Non-zero width for an empty image");
-    TEST_ASSERT_MSG(0 == img1.height(), "Non-zero height for an empty image");
-    TEST_ASSERT_MSG(0 == img1.depth(), "Non-zero depth for an empty image");
-    TEST_ASSERT_MSG(0 == img1.spectrum(), "Non-zero spectrum for an empty image");
-    TEST_ASSERT_MSG(0 == img1.size(), "Non-zero size for an empty image");
-
-    cimg_library::CImg<unsigned int> img2(256, 256, 0, 3);
-    TEST_ASSERT_MSG(0 == img2.width(), "Non-zero width for an empty image");
-    TEST_ASSERT_MSG(0 == img2.height(), "Non-zero height for an empty image");
-    TEST_ASSERT_MSG(0 == img2.depth(), "Non-zero depth for an empty image");
-    TEST_ASSERT_MSG(0 == img2.spectrum(), "Non-zero spectrum for an empty image");
-    TEST_ASSERT_MSG(0 == img2.size(), "Non-zero size for an empty image");
-
-    cimg_library::CImg<unsigned int> img3(256, 256, 256, 0);
-    TEST_ASSERT_MSG(0 == img3.width(), "Non-zero width for an empty image");
-    TEST_ASSERT_MSG(0 == img3.height(), "Non-zero height for an empty image");
-    TEST_ASSERT_MSG(0 == img3.depth(), "Non-zero depth for an empty image");
-    TEST_ASSERT_MSG(0 == img3.spectrum(), "Non-zero spectrum for an empty image");
-    TEST_ASSERT_MSG(0 == img3.size(), "Non-zero size for an empty image");
+    cimg_library::CImg<float> img1(2, 2, 1, 3);
 }
 
 void CImgTestSuite::test2()
