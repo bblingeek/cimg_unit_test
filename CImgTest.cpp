@@ -290,6 +290,62 @@ void CImgTestSuite::cimgUTestOperators()
         unsigned int initialPixelVal = img2(x, y, z, c);
         TEST_ASSERT_MSG((initialPixelVal + 20) == img1(x, y, z, c), "Pixel value incorrect");
     }
+    
+    img1 = img2;
+    img1 += "x + y";
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG((initialPixelVal + x + y) == img1(x, y, z, c), "Pixel value incorrect");
+    }
+    
+    img1 = img2;
+    img1 += img2;
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG((2 * initialPixelVal) == img1(x, y, z, c), "Pixel value incorrect");
+    }
+    
+    img1 = img2;
+    ++img1;
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG((initialPixelVal + 1) == img1(x, y, z, c), "Pixel value incorrect");
+    }
+
+    img1 = img2;
+    img1++;
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG((initialPixelVal + 1) == img1(x, y, z, c), "Pixel value incorrect");
+    }
+
+    img1 = img2;
+    img1 = img2 + 20;
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG((initialPixelVal + 20) == img1(x, y, z, c), "Pixel value incorrect");
+    }
+
+    img1 = img2;
+    img1 = img2 + "x + y";
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG((initialPixelVal + x + y) == img1(x, y, z, c), "Pixel value incorrect");
+    }
+
+    img1 = img2;
+    img1 = img1 + img2;
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG((2 * initialPixelVal) == img1(x, y, z, c), "Pixel value incorrect");
+    }
 }
 
 void CImgTestSuite::test2()
