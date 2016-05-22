@@ -261,6 +261,35 @@ void CImgTestSuite::cimgUTestOperators()
     TEST_ASSERT_MSG(0 == img1(1, 1, 0, 0), "R-component of Pixel value mismatch");
     TEST_ASSERT_MSG(255 == img1(1, 1, 0, 1), "G-component of Pixel value mismatch");
     TEST_ASSERT_MSG(0 == img1(1, 1, 0, 2), "B-component of Pixel value mismatch");
+    
+    img1 = "1, 2, 3, 4";
+    TEST_ASSERT_MSG(1 == img1(0, 0, 0, 0), "R-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(1 == img1(0, 0, 0, 1), "G-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(1 == img1(0, 0, 0, 2), "B-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(3 == img1(0, 1, 0, 0), "R-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(3 == img1(0, 1, 0, 1), "G-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(3 == img1(0, 1, 0, 2), "B-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(2 == img1(1, 0, 0, 0), "R-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(2 == img1(1, 0, 0, 1), "G-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(2 == img1(1, 0, 0, 2), "B-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(4 == img1(1, 1, 0, 0), "R-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(4 == img1(1, 1, 0, 1), "G-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(4 == img1(1, 1, 0, 2), "B-component of Pixel value mismatch");
+    
+    img1 = "x + y";
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int pixelVal = img1(x, y, z, c);
+        TEST_ASSERT_MSG(pixelVal == (x + y), "Pixel value incorrect");
+    }
+    
+    img1 = img2;
+    img1 += 20;
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG((initialPixelVal + 20) == img1(x, y, z, c), "Pixel value incorrect");
+    }
 }
 
 void CImgTestSuite::test2()
