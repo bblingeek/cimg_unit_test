@@ -212,14 +212,14 @@ void CImgTestSuite::cimgUTestOperators()
     const unsigned int _spectrum = 3;
     
     cimg_library::CImg<float> img1(_width, _height, _depth, _spectrum, 
-                                   0, 64, 128, 255,
-                                   255, 128, 64, 0,
-                                   0, 64, 128, 255);
+                                   32, 64, 128, 255,
+                                   255, 128, 64, 32,
+                                   32, 64, 128, 255);
     
     cimg_library::CImg<float> img2(_width, _height, _depth, _spectrum, 
-                                   255, 128, 64, 0,
-                                   0, 64, 128, 255,
-                                   255, 128, 64, 0);
+                                   255, 128, 64, 32,
+                                   32, 64, 128, 255,
+                                   255, 128, 64, 32);
     
     TEST_ASSERT_MSG(_width == img1.width(), "Image width mismatch");
     TEST_ASSERT_MSG(_height == img1.height(), "Image height mismatch");
@@ -228,9 +228,9 @@ void CImgTestSuite::cimgUTestOperators()
     TEST_ASSERT_MSG((_width * _height * _depth * _spectrum) == img1.size(), "Image size mismatch");
     TEST_ASSERT_MSG(0 == strcmp("float", img1.pixel_type()), "Pixel type incorrect for the image");
 
-    TEST_ASSERT_MSG(0 == img1(0, 0, 0, 0), "R-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(32 == img1(0, 0, 0, 0), "R-component of Pixel value mismatch");
     TEST_ASSERT_MSG(255 == img1(0, 0, 0, 1), "G-component of Pixel value mismatch");
-    TEST_ASSERT_MSG(0 == img1(0, 0, 0, 2), "B-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(32 == img1(0, 0, 0, 2), "B-component of Pixel value mismatch");
     TEST_ASSERT_MSG(128 == img1(0, 1, 0, 0), "R-component of Pixel value mismatch");
     TEST_ASSERT_MSG(64 == img1(0, 1, 0, 1), "G-component of Pixel value mismatch");
     TEST_ASSERT_MSG(128 == img1(0, 1, 0, 2), "B-component of Pixel value mismatch");
@@ -238,7 +238,7 @@ void CImgTestSuite::cimgUTestOperators()
     TEST_ASSERT_MSG(128 == img1(1, 0, 0, 1), "G-component of Pixel value mismatch");
     TEST_ASSERT_MSG(64 == img1(1, 0, 0, 2), "B-component of Pixel value mismatch");
     TEST_ASSERT_MSG(255 == img1(1, 1, 0, 0), "R-component of Pixel value mismatch");
-    TEST_ASSERT_MSG(0 == img1(1, 1, 0, 1), "G-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(32 == img1(1, 1, 0, 1), "G-component of Pixel value mismatch");
     TEST_ASSERT_MSG(255 == img1(1, 1, 0, 2), "B-component of Pixel value mismatch");
     
     img1 = 200;
@@ -250,7 +250,7 @@ void CImgTestSuite::cimgUTestOperators()
     
     img1 = img2;
     TEST_ASSERT_MSG(255 == img1(0, 0, 0, 0), "R-component of Pixel value mismatch");
-    TEST_ASSERT_MSG(0 == img1(0, 0, 0, 1), "G-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(32 == img1(0, 0, 0, 1), "G-component of Pixel value mismatch");
     TEST_ASSERT_MSG(255 == img1(0, 0, 0, 2), "B-component of Pixel value mismatch");
     TEST_ASSERT_MSG(64 == img1(0, 1, 0, 0), "R-component of Pixel value mismatch");
     TEST_ASSERT_MSG(128 == img1(0, 1, 0, 1), "G-component of Pixel value mismatch");
@@ -258,9 +258,9 @@ void CImgTestSuite::cimgUTestOperators()
     TEST_ASSERT_MSG(128 == img1(1, 0, 0, 0), "R-component of Pixel value mismatch");
     TEST_ASSERT_MSG(64 == img1(1, 0, 0, 1), "G-component of Pixel value mismatch");
     TEST_ASSERT_MSG(128 == img1(1, 0, 0, 2), "B-component of Pixel value mismatch");
-    TEST_ASSERT_MSG(0 == img1(1, 1, 0, 0), "R-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(32 == img1(1, 1, 0, 0), "R-component of Pixel value mismatch");
     TEST_ASSERT_MSG(255 == img1(1, 1, 0, 1), "G-component of Pixel value mismatch");
-    TEST_ASSERT_MSG(0 == img1(1, 1, 0, 2), "B-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(32 == img1(1, 1, 0, 2), "B-component of Pixel value mismatch");
     
     img1 = "1, 2, 3, 4";
     TEST_ASSERT_MSG(1 == img1(0, 0, 0, 0), "R-component of Pixel value mismatch");
@@ -345,6 +345,70 @@ void CImgTestSuite::cimgUTestOperators()
     {
         unsigned int initialPixelVal = img2(x, y, z, c);
         TEST_ASSERT_MSG((2 * initialPixelVal) == img1(x, y, z, c), "Pixel value incorrect");
+    }
+    
+    img1 = img2;
+    img1 -= 20;
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG((initialPixelVal - 20) == img1(x, y, z, c), "Pixel value incorrect");
+    }
+    
+    img1 = img2;
+    img1 -= "x + y";
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG((initialPixelVal - x - y) == img1(x, y, z, c), "Pixel value incorrect");
+    }
+    
+    img1 = img2;
+    img1 -= img2;
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG(0 == img1(x, y, z, c), "Pixel value incorrect");
+    }
+    
+    img1 = img2;
+    --img1;
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG((initialPixelVal - 1) == img1(x, y, z, c), "Pixel value incorrect");
+    }
+
+    img1 = img2;
+    img1--;
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG((initialPixelVal - 1) == img1(x, y, z, c), "Pixel value incorrect");
+    }
+
+    img1 = img2;
+    img1 = img2 - 20;
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG((initialPixelVal - 20) == img1(x, y, z, c), "Pixel value incorrect");
+    }
+
+    img1 = img2;
+    img1 = img2 - "x + y";
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG((initialPixelVal - x - y) == img1(x, y, z, c), "Pixel value incorrect");
+    }
+
+    img1 = img2;
+    img1 = img1 - img2;
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int initialPixelVal = img2(x, y, z, c);
+        TEST_ASSERT_MSG(0 == img1(x, y, z, c), "Pixel value incorrect");
     }
 }
 
