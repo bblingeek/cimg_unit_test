@@ -22,7 +22,7 @@ class CImgTestSuite : public Test::Suite
         {
             TEST_ADD(CImgTestSuite::cimgUTestEmptyImage);
             TEST_ADD(CImgTestSuite::cimgUTestDataInput);
-            TEST_ADD(CImgTestSuite::cimgUTest1);
+            TEST_ADD(CImgTestSuite::cimgUTestOperators);
             TEST_ADD(CImgTestSuite::test2);
             TEST_ADD(CImgTestSuite::test3);
             TEST_ADD(CImgTestSuite::test4);
@@ -35,7 +35,7 @@ class CImgTestSuite : public Test::Suite
     private:
         void cimgUTestEmptyImage();
         void cimgUTestDataInput();
-        void cimgUTest1();
+        void cimgUTestOperators();
         void test2();
         void test3();
         void test4();
@@ -204,9 +204,63 @@ void CImgTestSuite::cimgUTestDataInput()
     TEST_THROWS_MSG(img.get_load_other("non-existent-file"), cimg_library::CImgIOException, "CImgIOException expected");    
 }
 
-void CImgTestSuite::cimgUTest1()
+void CImgTestSuite::cimgUTestOperators()
 {
-    cimg_library::CImg<float> img1(2, 2, 1, 3);
+    const unsigned int _width = 2;
+    const unsigned int _height = 2;
+    const unsigned int _depth = 1;
+    const unsigned int _spectrum = 3;
+    
+    cimg_library::CImg<float> img1(_width, _height, _depth, _spectrum, 
+                                   0, 64, 128, 255,
+                                   255, 128, 64, 0,
+                                   0, 64, 128, 255);
+    
+    cimg_library::CImg<float> img2(_width, _height, _depth, _spectrum, 
+                                   255, 128, 64, 0,
+                                   0, 64, 128, 255,
+                                   255, 128, 64, 0);
+    
+    TEST_ASSERT_MSG(_width == img1.width(), "Image width mismatch");
+    TEST_ASSERT_MSG(_height == img1.height(), "Image height mismatch");
+    TEST_ASSERT_MSG(_depth == img1.depth(), "Image depth mismatch");
+    TEST_ASSERT_MSG(_spectrum == img1.spectrum(), "Image spectrum mismatch");
+    TEST_ASSERT_MSG((_width * _height * _depth * _spectrum) == img1.size(), "Image size mismatch");
+    TEST_ASSERT_MSG(0 == strcmp("float", img1.pixel_type()), "Pixel type incorrect for the image");
+
+    TEST_ASSERT_MSG(0 == img1(0, 0, 0, 0), "R-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(255 == img1(0, 0, 0, 1), "G-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(0 == img1(0, 0, 0, 2), "B-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(128 == img1(0, 1, 0, 0), "R-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(64 == img1(0, 1, 0, 1), "G-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(128 == img1(0, 1, 0, 2), "B-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(64 == img1(1, 0, 0, 0), "R-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(128 == img1(1, 0, 0, 1), "G-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(64 == img1(1, 0, 0, 2), "B-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(255 == img1(1, 1, 0, 0), "R-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(0 == img1(1, 1, 0, 1), "G-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(255 == img1(1, 1, 0, 2), "B-component of Pixel value mismatch");
+    
+    img1 = 200;
+    cimg_forXYZC(img1, x, y, z, c)
+    {
+        unsigned int pixelVal = img1(x, y, z, c);
+        TEST_ASSERT_MSG(pixelVal == 200, "Pixel value incorrect");
+    }
+    
+    img1 = img2;
+    TEST_ASSERT_MSG(255 == img1(0, 0, 0, 0), "R-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(0 == img1(0, 0, 0, 1), "G-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(255 == img1(0, 0, 0, 2), "B-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(64 == img1(0, 1, 0, 0), "R-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(128 == img1(0, 1, 0, 1), "G-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(64 == img1(0, 1, 0, 2), "B-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(128 == img1(1, 0, 0, 0), "R-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(64 == img1(1, 0, 0, 1), "G-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(128 == img1(1, 0, 0, 2), "B-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(0 == img1(1, 1, 0, 0), "R-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(255 == img1(1, 1, 0, 1), "G-component of Pixel value mismatch");
+    TEST_ASSERT_MSG(0 == img1(1, 1, 0, 2), "B-component of Pixel value mismatch");
 }
 
 void CImgTestSuite::test2()
