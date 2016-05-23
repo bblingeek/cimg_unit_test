@@ -443,7 +443,6 @@ void CImgTestSuite::cimgUTestOperators()
         TEST_ASSERT_MSG((initialPixelVal * (x + y)) == img1(x, y, z, c), "Pixel value incorrect");
     }
     
-    //Hello
     img1 = img2;
     img1 /= 2;
     cimg_forXYZC(img1, x, y, z, c)
