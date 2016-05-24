@@ -766,7 +766,22 @@ void CImgTestSuite::cimgUTestOperators()
     {
         unsigned int initialPixelVal = img2(x, y, z, c);
         TEST_ASSERT_MSG((initialPixelVal >> img3(x, y, z, c)) == img1(x, y, z, c), "Pixel value incorrect");
-    }    
+    }
+    
+    img1 = img3;
+    TEST_ASSERT_MSG((img3 == 2), "Pixel value incorrect");
+    TEST_ASSERT_MSG((img3 == "2"), "Pixel value incorrect");
+    TEST_ASSERT_MSG((img1 == img3), "Pixel value incorrect");
+    TEST_ASSERT_MSG((false == (img2 == 2)), "Pixel value incorrect");
+    TEST_ASSERT_MSG((false == (img2 == "2")), "Pixel value incorrect");
+    TEST_ASSERT_MSG((false == (img1 == img2)), "Pixel value incorrect");
+    
+    TEST_ASSERT_MSG((false == (img3 != 2)), "Pixel value incorrect");
+    TEST_ASSERT_MSG((false == (img3 != "2")), "Pixel value incorrect");
+    TEST_ASSERT_MSG((false == (img1 != img3)), "Pixel value incorrect");
+    TEST_ASSERT_MSG((true == (img2 != 2)), "Pixel value incorrect");
+    TEST_ASSERT_MSG((true == (img2 != "2")), "Pixel value incorrect");
+    TEST_ASSERT_MSG((true == (img1 != img2)), "Pixel value incorrect");
 }
 
 void CImgTestSuite::test2()
