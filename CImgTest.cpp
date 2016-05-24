@@ -21,7 +21,7 @@ class CImgTestSuite : public Test::Suite
         CImgTestSuite()
         {
             TEST_ADD(CImgTestSuite::cimgUTestEmptyImage);
-            TEST_ADD(CImgTestSuite::cimgUTestDataInput);
+            TEST_ADD(CImgTestSuite::cimgUTestDataInputExceptions);
             TEST_ADD(CImgTestSuite::cimgUTestOperators);
             TEST_ADD(CImgTestSuite::test2);
             TEST_ADD(CImgTestSuite::test3);
@@ -34,7 +34,7 @@ class CImgTestSuite : public Test::Suite
         
     private:
         void cimgUTestEmptyImage();
-        void cimgUTestDataInput();
+        void cimgUTestDataInputExceptions();
         void cimgUTestOperators();
         void test2();
         void test3();
@@ -113,7 +113,7 @@ void CImgTestSuite::cimgUTestEmptyImage()
     TEST_THROWS_MSG(img1.det(), cimg_library::CImgInstanceException, "CImgInstanceException expected");
 }
 
-void CImgTestSuite::cimgUTestDataInput()
+void CImgTestSuite::cimgUTestDataInputExceptions()
 {
     cimg_library::CImg<float> img;
     
