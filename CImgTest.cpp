@@ -23,7 +23,7 @@ class CImgTestSuite : public Test::Suite
             TEST_ADD(CImgTestSuite::cimgUTestEmptyImage);
             TEST_ADD(CImgTestSuite::cimgUTestDataInputExceptions);
             TEST_ADD(CImgTestSuite::cimgUTestOperators);
-            TEST_ADD(CImgTestSuite::test2);
+            TEST_ADD(CImgTestSuite::cimgUTestInstanceCharacteristics);
             TEST_ADD(CImgTestSuite::test3);
             TEST_ADD(CImgTestSuite::test4);
             TEST_ADD(CImgTestSuite::test5);
@@ -36,7 +36,7 @@ class CImgTestSuite : public Test::Suite
         void cimgUTestEmptyImage();
         void cimgUTestDataInputExceptions();
         void cimgUTestOperators();
-        void test2();
+        void cimgUTestInstanceCharacteristics();
         void test3();
         void test4();
         void test5();
@@ -784,7 +784,7 @@ void CImgTestSuite::cimgUTestOperators()
     TEST_ASSERT_MSG((true == (img1 != img2)), "Pixel value incorrect");
 }
 
-void CImgTestSuite::test2()
+void CImgTestSuite::cimgUTestInstanceCharacteristics()
 {
     const unsigned int x = 256;
     const unsigned int y = 128;
@@ -797,6 +797,8 @@ void CImgTestSuite::test2()
     TEST_ASSERT_MSG(z == img1.depth(), "Image depth mismatch");
     TEST_ASSERT_MSG(c == img1.spectrum(), "Image spectrum mismatch");
     TEST_ASSERT_MSG(((x * y * z * c) == img1.size()), "Image size mismatch");
+    TEST_ASSERT_MSG((img1.data() != NULL), "Unable to reference first pixel of a non-empty image");
+    TEST_ASSERT_MSG((img1.data(0, 0, 0, 0) != NULL), "Unable to reference pixel of a non-empty image");
 
     cimg_library::CImg<unsigned int> img2(img1, "xyzc");
     TEST_ASSERT_MSG(x == img2.width(), "Image width mismatch");
@@ -804,6 +806,8 @@ void CImgTestSuite::test2()
     TEST_ASSERT_MSG(z == img2.depth(), "Image depth mismatch");
     TEST_ASSERT_MSG(c == img2.spectrum(), "Image spectrum mismatch");
     TEST_ASSERT_MSG(((x * y * z * c) == img2.size()), "Image size mismatch");
+    TEST_ASSERT_MSG((img2.data() != NULL), "Unable to reference first pixel of a non-empty image");
+    TEST_ASSERT_MSG((img2.data(0, 0, 0, 0) != NULL), "Unable to reference pixel of a non-empty image");
 
     cimg_library::CImg<unsigned int> img3(img1, "yzxc");
     TEST_ASSERT_MSG(y == img3.width(), "Image width mismatch");
@@ -811,6 +815,8 @@ void CImgTestSuite::test2()
     TEST_ASSERT_MSG(x == img3.depth(), "Image depth mismatch");
     TEST_ASSERT_MSG(c == img3.spectrum(), "Image spectrum mismatch");
     TEST_ASSERT_MSG(((x * y * z * c) == img3.size()), "Image size mismatch");
+    TEST_ASSERT_MSG((img3.data() != NULL), "Unable to reference first pixel of a non-empty image");
+    TEST_ASSERT_MSG((img3.data(0, 0, 0, 0) != NULL), "Unable to reference pixel of a non-empty image");
 
     cimg_library::CImg<unsigned int> img4(img1, "zxyc");
     TEST_ASSERT_MSG(z == img4.width(), "Image width mismatch");
@@ -818,6 +824,8 @@ void CImgTestSuite::test2()
     TEST_ASSERT_MSG(y == img4.depth(), "Image depth mismatch");
     TEST_ASSERT_MSG(c == img4.spectrum(), "Image spectrum mismatch");
     TEST_ASSERT_MSG(((x * y * z * c) == img4.size()), "Image size mismatch");
+    TEST_ASSERT_MSG((img4.data() != NULL), "Unable to reference first pixel of a non-empty image");
+    TEST_ASSERT_MSG((img4.data(0, 0, 0, 0) != NULL), "Unable to reference pixel of a non-empty image");
 
     cimg_library::CImg<unsigned int> img5(img1, "xzyc");
     TEST_ASSERT_MSG(x == img5.width(), "Image width mismatch");
@@ -825,6 +833,8 @@ void CImgTestSuite::test2()
     TEST_ASSERT_MSG(y == img5.depth(), "Image depth mismatch");
     TEST_ASSERT_MSG(c == img5.spectrum(), "Image spectrum mismatch");
     TEST_ASSERT_MSG(((x * y * z * c) == img5.size()), "Image size mismatch");
+    TEST_ASSERT_MSG((img5.data() != NULL), "Unable to reference first pixel of a non-empty image");
+    TEST_ASSERT_MSG((img5.data(0, 0, 0, 0) != NULL), "Unable to reference pixel of a non-empty image");
 
     cimg_library::CImg<unsigned int> img6(img1, "yxzc");
     TEST_ASSERT_MSG(y == img6.width(), "Image width mismatch");
@@ -832,6 +842,8 @@ void CImgTestSuite::test2()
     TEST_ASSERT_MSG(z == img6.depth(), "Image depth mismatch");
     TEST_ASSERT_MSG(c == img6.spectrum(), "Image spectrum mismatch");
     TEST_ASSERT_MSG(((x * y * z * c) == img6.size()), "Image size mismatch");
+    TEST_ASSERT_MSG((img6.data() != NULL), "Unable to reference first pixel of a non-empty image");
+    TEST_ASSERT_MSG((img6.data(0, 0, 0, 0) != NULL), "Unable to reference pixel of a non-empty image");
 
     cimg_library::CImg<unsigned int> img7(img1, "zyxc");
     TEST_ASSERT_MSG(z == img7.width(), "Image width mismatch");
@@ -839,6 +851,8 @@ void CImgTestSuite::test2()
     TEST_ASSERT_MSG(x == img7.depth(), "Image depth mismatch");
     TEST_ASSERT_MSG(c == img7.spectrum(), "Image spectrum mismatch");
     TEST_ASSERT_MSG(((x * y * z * c) == img7.size()), "Image size mismatch");
+    TEST_ASSERT_MSG((img7.data() != NULL), "Unable to reference first pixel of a non-empty image");
+    TEST_ASSERT_MSG((img7.data(0, 0, 0, 0) != NULL), "Unable to reference pixel of a non-empty image");
 }
 
 void CImgTestSuite::test3()
