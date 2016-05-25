@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <cstdlib>
 #include <cstring>
 #include <cmath>
 
@@ -43,7 +44,15 @@ class CImgTestSuite : public Test::Suite
         void test6();
         void test7();
         void test8();
+        
+        int getRandomNumber(int min, int max);
 };
+
+int CImgTestSuite::getRandomNumber(int min, int max)
+{
+    //Return a random integer in the range (min ... max) inclusive
+    return (rand() % (max - min + 1)) + min;
+}
 
 void CImgTestSuite::cimgUTestEmptyImage()
 {
